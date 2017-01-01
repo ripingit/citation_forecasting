@@ -10,7 +10,7 @@ import sys
 import json
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
-import common
+import common_config
 
 params_file = 'params-test.json'
 
@@ -38,8 +38,8 @@ params_file = 'params-test.json'
 # }
 
 
-def train(train_count=common.train_count):
-	seq_csv = file(common.aln_seq,'rb')
+def train(train_count=common_config.train_count):
+	seq_csv = file(common_config.aln_seq,'rb')
 	mat = [x for x in csv.reader(seq_csv)]#csvread('aln_seq.csv');
 	citing_events = []#{};
 	for i in range(len(mat)):#iter=1:size(mat,1)
@@ -58,7 +58,7 @@ def train(train_count=common.train_count):
 
 	
 
-	fea_csv = file(common.aln_fea,'rb')
+	fea_csv = file(common_config.aln_fea,'rb')
 
 	fea = []
 	for row in csv.reader(fea_csv):
@@ -67,7 +67,7 @@ def train(train_count=common.train_count):
 		min_ = min(row)
 		new_row = [(x - min_)/float(max_ - min_) for x in row]
 		fea.append(new_row)
-	vau_csv = file(common.aln_vau,'rb')
+	vau_csv = file(common_config.aln_vau,'rb')
 	vau = [row for row in csv.reader(vau_csv)]
 
 	# N = len(fea)#size(fea,1);% 
@@ -107,7 +107,7 @@ def train(train_count=common.train_count):
 		trainF.append(fea[item])# = [trainF ;fea(item,:)];
 		trainV.append(vau[item])
 
-	theta,parameter = train_fast.train_fast(trainS,trainF,publish_year,converge=common.converge)
+	theta,parameter = train_fast.train_fast(trainS,trainF,publish_year,converge=common_config.converge)
 
 
 	paper = {}

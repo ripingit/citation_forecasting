@@ -7,7 +7,7 @@ import sys, os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
 import pysolr
-import common
+import common_config
 import json
 import sqlite3
 
@@ -36,14 +36,14 @@ def insert_dict(cur,tablename,dict_):
 	cur.execute("%s"%sql,[unicode(item[1],'utf8') for item in items])
 
 def select_papers():
-	conn = sqlite3.connect(common.dbfile)
+	conn = sqlite3.connect(common_config.dbfile)
 	cur = conn.cursor()
 
-	with open(common.params_file) as fr:
+	with open(common_config.params_file) as fr:
 		param = json.load(fr)
 
 	
-	for table in common.tables:
+	for table in common_config.tables:
 		cur.execute("delete from '%s'"%table['name'])
 		tablefile = open(table['file'])
 		if table['name'] in ['paper','paper_url','paper_author_affiliation','paper_keyword','paper_reference']:
@@ -97,7 +97,7 @@ def select_papers():
 
 def build_solr_index():
 
-	conn = sqlite3.connect(common.dbfile)
+	conn = sqlite3.connect(common_config.dbfile)
 	cur = conn.cursor()
 
 	keys = [
@@ -179,7 +179,7 @@ def build_solr_index():
 	# 	paper['id'] = paper_id
 	# 	indexed_papers.append(paper)
 
-	solr = pysolr.Solr(common.search_server)	
+	solr = pysolr.Solr(common_config.search_server)
 	successful_papers = 0
 	failed_papers = 0
 	for paper in indexed_papers:
@@ -196,7 +196,7 @@ def build_solr_index():
 	conn.close()
 
 def delete_solr_index():
-	solr = pysolr.Solr(common.search_server)
+	solr = pysolr.Solr(common_config.search_server)
 	solr.delete(q='*:*')
 
 

@@ -8,7 +8,7 @@ import json
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
 from model import *
-import common
+import common_config
 
 import pysolr
 #import sqlite3
@@ -21,7 +21,7 @@ def capitalize_name(author):
 
 def gen_search_text(search_words):
     search_text = ''
-    for weight in common.field_weights:
+    for weight in common_config.field_weights:
         for w in search_words:
             search_text += weight[0] + ':*' + w + '*^%d '%weight[1]
     for w in search_words:
@@ -41,7 +41,7 @@ class SubmitHandler(tornado.web.RequestHandler):
         body = self.request.body
         files = self.request.files
 
-        solr = pysolr.Solr(common.search_server)
+        solr = pysolr.Solr(common_config.search_server)
 
         search_words = args.get('kw',[])
         # if len(search_words) < 1:
@@ -56,7 +56,7 @@ class SubmitHandler(tornado.web.RequestHandler):
         #self.write( {'start':start})
         #return
         search_text = gen_search_text(search_words)
-        results = solr.search(search_text,**{'start':start,'rows':common.paging_size})
+        results = solr.search(search_text,**{'start':start,'rows':common_config.paging_size})
         if results:
             paper_list = []
             # conn = sqlite3.connect(common.dbfile)

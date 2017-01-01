@@ -21,7 +21,7 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
-import common
+import common_config
 #from fuzzywuzzy import fuzz,process
 
 ##############################################
@@ -34,7 +34,7 @@ import common
 
 
 #common.dataset_dir =/ ("/DATA/data/mag/MAG/")
-cspath = common.preprocessed_dataset_dir + '/'
+cspath = common_config.preprocessed_dataset_dir + '/'
 
 def CSvenuePapers():
     # select papers from CS venues
@@ -47,7 +47,7 @@ def CSvenuePapers():
     CSvenuePaper = set()
     CSvenuePaper_Venue = dict()
     CSvenue_paper = defaultdict(set)
-    with open(common.dataset_dir+"/Papers.txt") as f:
+    with open(common_config.dataset_dir+"/Papers.txt") as f:
         for line in f:
             nl = line.strip().split("\t")
             itsvenue = nl[8] if nl[8] else nl[9]
@@ -74,7 +74,7 @@ def PaperAuthorAffiliations():#
     affCSpaper = defaultdict(set)
     paperaAff = defaultdict(list)
     authorAff = defaultdict(set)
-    with open(common.dataset_dir+"/PaperAuthorAffiliations.txt") as f:
+    with open(common_config.dataset_dir+"/PaperAuthorAffiliations.txt") as f:
         for line in f:
             nl = line.strip().split("\t")
             if nl[0] in ids:
@@ -104,7 +104,7 @@ def papercitation():
     ids = pickle.load(open(cspath+"CSvenuePaper","rb")) # all papers in CS venues
     paper_citation = defaultdict(set)
     paperreference = defaultdict(set)
-    with open(common.dataset_dir+"/PaperReferences.txt") as f:
+    with open(common_config.dataset_dir+"/PaperReferences.txt") as f:
         for line in f:
             citing,cited = line.strip().split("\t")
             if cited in ids:
@@ -124,7 +124,7 @@ def PaperKeywords():
     paperFOD = defaultdict(set)
     keyhot = defaultdict(list)
 
-    with open(common.dataset_dir+"/PaperKeywords.txt") as f:
+    with open(common_config.dataset_dir+"/PaperKeywords.txt") as f:
         for line in f:
             nl = line.strip().split("\t")
             if nl[0] in CSpaper:
@@ -142,7 +142,7 @@ def Papers(paperset,savefile):
     # output: paperinfo (defaultdict(dict))
     CSpaper = paperset
     paperinfo = defaultdict(dict)
-    with open(common.dataset_dir+"/Papers.txt") as f:
+    with open(common_config.dataset_dir+"/Papers.txt") as f:
         for line in f:
             nl = line.strip().split("\t")
             if nl[0] in CSpaper:

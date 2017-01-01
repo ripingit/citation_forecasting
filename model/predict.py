@@ -8,13 +8,13 @@ import os
 import sys
 import json
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
-import common
+import common_config
 
 
 def predict_ct(paper_id,predy=10):
 
 	#with open(common.params_file) as fr:
-	param = common.params_json
+	param = common_config.params_json
 	#trainS,trainF,theta,parameter = param['trainS'],param['trainF'],param['theta'],param['parameter']
 	paper_param = param['paper'][paper_id]
 	w1 = paper_param['parameter'][0]

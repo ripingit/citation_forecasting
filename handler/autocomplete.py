@@ -8,7 +8,7 @@ import json
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
 from model import *
-import common
+import common_config
 
 import urllib
 
@@ -23,7 +23,7 @@ class AutocompleteHandler(tornado.web.RequestHandler):
         prefix = args.get('prefix',[])
         if isinstance(prefix,list):
             prefix = prefix[0]
-        search_url = urllib.urlopen(common.autocomplete_url_prefix + prefix)
+        search_url = urllib.urlopen(common_config.autocomplete_url_prefix + prefix)
         result = json.loads(search_url.read())
         #results = solr.search(search_text,**{'start':start,'rows':common.paging_size})
         if result:
