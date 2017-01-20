@@ -11,9 +11,9 @@
 
 ./common.py 相当于全局配置文件，可以在这里修改项目配置
 
-./controller/* 提供后端服务的各个request handler，如搜索服务
+./controller/* 提供后端各个request handler
 
-./service/* 项目模型部分，负责基于训练好的模型预测论文引用次数
+./service/* 负责基于训练好的模型预测论文引用次数
 
 ./preprocess/*  如果模型没有实现训练好，那么需要运行这个目录中的程序训练模型
 
