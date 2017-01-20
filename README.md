@@ -1,9 +1,7 @@
 ### Citation Forecasting
 
 ####1.简介
-论文引用次数预测Demo，基于微软学术图历史数据预测论文引用次数上升趋势。项目同时包含前端、后台、模型算法。
-
-项目工程目录结构、部署需求、项目截图见下文。
+论文引用次数预测Demo，基于微软学术图历史数据预测论文引用次数上升趋势, 同时包含前端、后台、模型算法。
 
 ####2.目录结构
 
@@ -13,15 +11,15 @@
 
 ./common.py 相当于全局配置文件，可以在这里修改项目配置
 
-./handler/* 提供后端服务的各个request handler，如搜索服务
+./controller/* 提供后端服务的各个request handler，如搜索服务
 
-./model/* 项目模型部分，负责基于训练好的模型预测论文引用次数
+./service/* 项目模型部分，负责基于训练好的模型预测论文引用次数
 
 ./preprocess/*  如果模型没有实现训练好，那么需要运行这个目录中的程序训练模型
 
 ./static/* CSS、JS等静态文件
 
-./templates/* Tornado模板文件
+./view/* Tornado模板文件
 
 
 ####3.部署需求
@@ -29,7 +27,7 @@
 1. python 2.7.10
 2. numpy 1.7.1
 3. tornado 4.3
-4. Java 1.8 （需要官方版本，而不能是Cent OS自带的版本）
+4. Java 1.8 （需要Oracle官方版本）
 5. solr 6.0
 6. pysolr 3.3
 
@@ -38,7 +36,6 @@
 
 ####4.部署方法：
 
-总的来说，整个系统的构建需要四个阶段：预处理数据集 》》训练模型参数》》建立文章索引》》运行系统.
 
 ######第一步：
 
@@ -72,9 +69,9 @@ $ bin/post -c gettingstarted docs/
 ######第四步：
 
 建立用于搜索引擎的索引，需要params.json文件，并在终端输入 
-$ python ./model/build_index.py。
+$ python ./preprocess/build_index.py。
 
-如果项目中没有./model/academic.db文件，需要运行build_index.py中的select_paper()函数生成
+如果项目中没有./preprocess/academic.db文件，需要运行build_index.py中的select_paper()函数生成
 
 ######第五步：
 
@@ -93,13 +90,10 @@ http://localhost:8911
 
 ####6.Reference
 
-On modeling and predicting individual paper citation count over time
+X Liu, J Yan, S Xiao, X Wang, H Zha, S Chu. On Predictive Patent Valuation: Forecasting Patent Citations and Their Types. AAAI 2017.
 
 
-S Xiao, J Yan, C Li, B Jin, X Wang, H Zha, X Yang, MC Stephen
-
-
-International Joint Conference on Artificial Intelligence (IJCAI)
+S Xiao, J Yan, C Li, B Jin, X Wang, H Zha, X Yang, MC Stephen. On modeling and predicting individual paper citation count over time. IJCAI 2016.
 
 
 

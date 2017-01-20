@@ -7,7 +7,7 @@ import sys
 import json
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
-from model import *
+from service import *
 import common_config
 
 import pysolr

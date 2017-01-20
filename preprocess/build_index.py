@@ -8,6 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
 import pysolr
 import common_config
+import database
 import json
 import sqlite3
 

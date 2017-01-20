@@ -9,7 +9,7 @@ import tornado.ioloop
 import os, time
 
 #import common
-from handler import *
+from controller import *
 
 define("port", default=8911, help="run on the given port", type=int)
 
@@ -19,7 +19,7 @@ define("port", default=8911, help="run on the given port", type=int)
 #     def get(self):
 #         yield tornado.gen.Task(tornado.ioloop.IOLoop.instance().add_timeout,time.time()+5)
 #         self.write("@1 after sleeping or 5s")
-#         self.finish() # 四次握手关闭连接
+#         self.finish()
  
 
 class Application(tornado.web.Application):
@@ -44,7 +44,8 @@ class Application(tornado.web.Application):
         ]
         settings={
             'static_path':os.path.join(os.path.dirname(os.path.abspath(__file__)),'static'),
-            'template_path' : os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates'),
+            'static_url_prefix':'static/',
+            'template_path' : os.path.join(os.path.dirname(os.path.abspath(__file__)), 'view'),
             'login_url':'/login',
             'cookie_secret':'F/hsxF7kTIWGO1F6HrH78Rf4bMRe5EyFhjtReh6x+/E=',
             'xsrf_cookies':False,
@@ -59,4 +60,3 @@ if __name__ == '__main__':
     http_server = tornado.httpserver.HTTPServer(app)
     http_server.listen(options.port)
     tornado.ioloop.IOLoop().instance().start()
-
