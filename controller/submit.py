@@ -1,14 +1,14 @@
 #coding:utf-8
 
-import tornado.web
-
+import json
 import os
 import sys
-import json
+
+import tornado.web
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
 from service import *
-import common_config
+from common_config import common_config
 
 import pysolr
 #import sqlite3
@@ -56,7 +56,7 @@ class SubmitHandler(tornado.web.RequestHandler):
         #self.write( {'start':start})
         #return
         search_text = gen_search_text(search_words)
-        results = solr.search(search_text,**{'start':start,'rows':common_config.paging_size})
+        results = solr.search(search_text, **{'start':start,'rows': common_config.paging_size})
         if results:
             paper_list = []
             # conn = sqlite3.connect(common.dbfile)

@@ -3,7 +3,7 @@
 import os
 import json
 
-params_file = os.path.dirname(os.path.abspath(__file__)) + '/' + 'service/params.json'
+params_file = os.path.dirname(os.path.abspath(__file__)) + '/../service/params.json'
 #params_file = os.path.dirname(os.path.abspath(__file__)) + '/' + 'service/param15.json'
 
 # original dataset
@@ -28,3 +28,20 @@ converge = 1e-1
 params_json = {}
 with open(params_file) as fr:
 	params_json = json.load(fr)
+
+# solr search
+
+field_weights = [
+	('normalized_title',10),
+	('author',3),
+	('keyword',3),
+	('publish_year',2),
+]
+
+boosting_function = []
+
+highlight_params = [
+	('fragsize',10),
+]
+
+paging_size = 5

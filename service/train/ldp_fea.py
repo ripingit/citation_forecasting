@@ -6,22 +6,19 @@ This version add paper that written by authors identified by venues
 and exclude paper with citation more than 1000
 @author: Administrator
 '''
-import os,re,codecs,datetime,math
+import os, datetime
 import cPickle as pickle
-import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
-from collections import defaultdict,Counter
-from matplotlib.backends.backend_pdf import PdfPages
-from matplotlib.pyplot import xlabel, ylabel
+from collections import defaultdict
 #from draw.density_estimate import density_est as det
-from datetime import datetime as dt
 
 import sys
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
-import common_config
+from common_config import common_config
+
 #from fuzzywuzzy import fuzz,process
 
 ##############################################
@@ -47,7 +44,7 @@ def CSvenuePapers():
     CSvenuePaper = set()
     CSvenuePaper_Venue = dict()
     CSvenue_paper = defaultdict(set)
-    with open(common_config.dataset_dir+"/Papers.txt") as f:
+    with open(common_config.dataset_dir+ "/Papers.txt") as f:
         for line in f:
             nl = line.strip().split("\t")
             itsvenue = nl[8] if nl[8] else nl[9]
@@ -74,7 +71,7 @@ def PaperAuthorAffiliations():#
     affCSpaper = defaultdict(set)
     paperaAff = defaultdict(list)
     authorAff = defaultdict(set)
-    with open(common_config.dataset_dir+"/PaperAuthorAffiliations.txt") as f:
+    with open(common_config.dataset_dir+ "/PaperAuthorAffiliations.txt") as f:
         for line in f:
             nl = line.strip().split("\t")
             if nl[0] in ids:
@@ -104,7 +101,7 @@ def papercitation():
     ids = pickle.load(open(cspath+"CSvenuePaper","rb")) # all papers in CS venues
     paper_citation = defaultdict(set)
     paperreference = defaultdict(set)
-    with open(common_config.dataset_dir+"/PaperReferences.txt") as f:
+    with open(common_config.dataset_dir+ "/PaperReferences.txt") as f:
         for line in f:
             citing,cited = line.strip().split("\t")
             if cited in ids:
@@ -124,7 +121,7 @@ def PaperKeywords():
     paperFOD = defaultdict(set)
     keyhot = defaultdict(list)
 
-    with open(common_config.dataset_dir+"/PaperKeywords.txt") as f:
+    with open(common_config.dataset_dir+ "/PaperKeywords.txt") as f:
         for line in f:
             nl = line.strip().split("\t")
             if nl[0] in CSpaper:
@@ -142,7 +139,7 @@ def Papers(paperset,savefile):
     # output: paperinfo (defaultdict(dict))
     CSpaper = paperset
     paperinfo = defaultdict(dict)
-    with open(common_config.dataset_dir+"/Papers.txt") as f:
+    with open(common_config.dataset_dir+ "/Papers.txt") as f:
         for line in f:
             nl = line.strip().split("\t")
             if nl[0] in CSpaper:

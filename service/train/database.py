@@ -1,16 +1,16 @@
 # database definition
-import sys, os
+import os
+import sys
+
 # reload(sys)
 # sys.setdefaultencoding('utf8')
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
-import pysolr
-from common_config import dataset_dir
-import json
+from common_config.common_config import dataset_dir
 import sqlite3
 
-dbfile = os.path.dirname(os.path.abspath(__file__)) + '/' + 'preprocess/academic.db'
+dbfile = os.path.dirname(os.path.abspath(__file__)) + '/academic.db'
 tables = [
 	{
 		'name':'paper',
@@ -66,24 +66,6 @@ tables = [
 		'file':dataset_dir + '/FieldsOfStudy.txt'
 	}
 ]
-
-# solr search
-
-field_weights = [
-	('normalized_title',10),
-	('author',3),
-	('keyword',3),
-	('publish_year',2),
-]
-
-boosting_function = []
-
-highlight_params = [
-	('fragsize',10),
-]
-
-paging_size = 5
-
 
 #create database
 conn = sqlite3.connect(dbfile)

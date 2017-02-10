@@ -1,14 +1,15 @@
 #coding:utf-8
 
-import sys, os
+import os
+import sys
+
 # reload(sys)
 # sys.setdefaultencoding('utf8')
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
 import pysolr
-import common_config
-import database
+from common_config import common_config
 import json
 import sqlite3
 

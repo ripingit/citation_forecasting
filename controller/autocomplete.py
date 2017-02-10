@@ -8,7 +8,7 @@ import json
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
 from service import *
-import common_config
+from common_config import common_config
 
 import urllib
 

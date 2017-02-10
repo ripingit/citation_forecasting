@@ -1,7 +1,6 @@
 #coding:utf-8
 import tornado.options
 from tornado.options import define, options
-#import tornado.gen
 import tornado.web
 import tornado.httpserver
 import tornado.ioloop
@@ -13,14 +12,6 @@ from controller import *
 
 define("port", default=8911, help="run on the given port", type=int)
 
-# class SleepHandler(tornado.web.RequestHandler):
-#     @tornado.web.asynchronous
-#     @tornado.gen.coroutine
-#     def get(self):
-#         yield tornado.gen.Task(tornado.ioloop.IOLoop.instance().add_timeout,time.time()+5)
-#         self.write("@1 after sleeping or 5s")
-#         self.finish()
- 
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -33,6 +24,7 @@ class Application(tornado.web.Application):
             (r'/autocomplete/',autocomplete.AutocompleteHandler),
             (r'/index/autocomplete/',autocomplete.AutocompleteHandler),
             (r'/contact/',contact.ContactHandler),
+            (r'/sleep/',sleep.SleepHandler),
             (r'/demo/ct/',index.IndexHandler),
             (r'/demo/ct/index/',index.IndexHandler),
             (r'/demo/ct/login/',login.LoginHandler),
@@ -44,7 +36,7 @@ class Application(tornado.web.Application):
         ]
         settings={
             'static_path':os.path.join(os.path.dirname(os.path.abspath(__file__)),'static'),
-            'static_url_prefix':'static/',
+            #'static_url_prefix':'static/',
             'template_path' : os.path.join(os.path.dirname(os.path.abspath(__file__)), 'view'),
             'login_url':'/login',
             'cookie_secret':'F/hsxF7kTIWGO1F6HrH78Rf4bMRe5EyFhjtReh6x+/E=',

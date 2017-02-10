@@ -2,13 +2,13 @@
 
 #from matplotlib import pyplot
 
-import numpy
-
 import os
 import sys
-import json
+
+import numpy
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
-import common_config
+from common_config import common_config
 
 
 def predict_ct(paper_id,predy=10):
