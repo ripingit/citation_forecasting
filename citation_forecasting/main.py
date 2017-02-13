@@ -1,13 +1,12 @@
 #coding:utf-8
+import os
+
+import tornado.ioloop
+import tornado.httpserver
+import tornado.web
 import tornado.options
 from tornado.options import define, options
-import tornado.web
-import tornado.httpserver
-import tornado.ioloop
 
-import os, time
-
-#import common
 from controller import *
 
 define("port", default=8911, help="run on the given port", type=int)
@@ -23,12 +22,12 @@ class Application(tornado.web.Application):
             (r'/index/submit/',submit.SubmitHandler),
             (r'/autocomplete/',autocomplete.AutocompleteHandler),
             (r'/index/autocomplete/',autocomplete.AutocompleteHandler),
-            (r'/contact/',contact.ContactHandler),
-            (r'/sleep/',sleep.SleepHandler),
+            (r'/contact/', contact.ContactHandler),
+            (r'/sleep/', sleep.SleepHandler),
             (r'/demo/ct/',index.IndexHandler),
             (r'/demo/ct/index/',index.IndexHandler),
             (r'/demo/ct/login/',login.LoginHandler),
-            (r'/demo/ct/contact/',contact.ContactHandler),
+            (r'/demo/ct/contact/', contact.ContactHandler),
             (r'/demo/ct/submit/',submit.SubmitHandler),
             (r'/demo/ct/index/submit/',submit.SubmitHandler),
             (r'/demo/ct/autocomplete/',autocomplete.AutocompleteHandler),
@@ -37,7 +36,7 @@ class Application(tornado.web.Application):
         settings={
             'static_path':os.path.join(os.path.dirname(os.path.abspath(__file__)),'static'),
             #'static_url_prefix':'static/',
-            'template_path' : os.path.join(os.path.dirname(os.path.abspath(__file__)), 'view'),
+            'template_path' : os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static/html'),
             'login_url':'/login',
             'cookie_secret':'F/hsxF7kTIWGO1F6HrH78Rf4bMRe5EyFhjtReh6x+/E=',
             'xsrf_cookies':False,
@@ -46,7 +45,7 @@ class Application(tornado.web.Application):
         }
         super(Application,self).__init__(handlers,**settings)
 
-if __name__ == '__main__':
+def main():
     tornado.options.parse_command_line()
     app = Application()
     http_server = tornado.httpserver.HTTPServer(app)

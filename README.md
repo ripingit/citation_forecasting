@@ -4,22 +4,22 @@
 论文引用次数预测Demo，基于微软学术图历史数据预测论文引用次数上升趋势, 囊括了前端、后台、模型。
 项目基于Tornado。
 
-####2.目录结构
+####2.模块&组件
 
 
 ./main.py 主文件
 
 ./common_config/* 包含全局配置文件
 
-./controller/* 提供请求处理逻辑，包含了每个Restful API对应的request handler
+./controller/* 定义了处理请求的步骤，包含API对应的request handler
 
-./service/* 提供论文搜索、引用次数预测、模型训练功能，封装为基础服务
+./service/* 定义了搜索论文、预测引用次数预测、训练模型模型的核心步骤，这些步骤被封装为基础服务
 
-./service/train/*  提供训练模型的算法
+./service/train/*  定义了训练模型的核心算法步骤
 
 ./static/* 包含CSS、JS等静态文件
 
-./view/* 包含Tornado模板文件
+./view/*  定义了前端界面交互步骤，包含Tornado模板文件
 
 
 ####3.部署需求

@@ -1,20 +1,21 @@
 #coding:utf-8
 
-#from matplotlib import pyplot
-
 import os
 import sys
-
+import json
 import numpy
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 from common_config import common_config
 
+with open(common_config.params_file) as fr:
+	params_json = json.load(fr)
+
 
 def predict_ct(paper_id,predy=10):
 
 	#with open(common.params_file) as fr:
-	param = common_config.params_json
+	param = params_json
 	#trainS,trainF,theta,parameter = param['trainS'],param['trainF'],param['theta'],param['parameter']
 	paper_param = param['paper'][paper_id]
 	w1 = paper_param['parameter'][0]

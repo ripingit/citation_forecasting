@@ -7,26 +7,10 @@ import sys
 import tornado.web
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
-from service import *
+from service import predict, search
+from util import str_util
 from common_config import common_config
 
-import pysolr
-#import sqlite3
-
-def capitalize_name(author):
-    new_author = ''
-    for seg_name in author.split():
-        new_author += seg_name.capitalize() + ' '
-    return new_author.strip()  
-
-def gen_search_text(search_words):
-    search_text = ''
-    for weight in common_config.field_weights:
-        for w in search_words:
-            search_text += weight[0] + ':*' + w + '*^%d '%weight[1]
-    for w in search_words:
-        search_text += w + ' '
-    return search_text
 
 class SubmitHandler(tornado.web.RequestHandler):
     #@tornado.web.authenticated
@@ -41,8 +25,6 @@ class SubmitHandler(tornado.web.RequestHandler):
         body = self.request.body
         files = self.request.files
 
-        solr = pysolr.Solr(common_config.search_server)
-
         search_words = args.get('kw',[])
         # if len(search_words) < 1:
         #     return
@@ -55,8 +37,7 @@ class SubmitHandler(tornado.web.RequestHandler):
             start = 0
         #self.write( {'start':start})
         #return
-        search_text = gen_search_text(search_words)
-        results = solr.search(search_text, **{'start':start,'rows': common_config.paging_size})
+        results = search.search_paper(search_words,start)
         if results:
             paper_list = []
             # conn = sqlite3.connect(common.dbfile)
@@ -69,10 +50,10 @@ class SubmitHandler(tornado.web.RequestHandler):
                     'id':paper_id,
                     'title':r.get('normalized_title',''),
                     'url':r.get('url',''),
-                    'authors':[capitalize_name(author) for author in r.get('authors',[])],
+                    'authors':[str_util.capitalize_name(author) for author in r.get('authors',[])],
                     'journal':r.get('journal',''),
                     'conference_series':r.get('conference_series',''),
-                    'keyword':[capitalize_name(author) for author in r.get('keyword','')],
+                    'keyword':[str_util.capitalize_name(author) for author in r.get('keyword','')],
                     'publish_year':r.get('publish_year',''),
                     'paper_rank':r.get('paper_rank',''),
                     'pred_ct':pred_ct,
