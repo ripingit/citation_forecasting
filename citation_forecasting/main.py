@@ -36,7 +36,7 @@ class Application(tornado.web.Application):
         settings={
             'static_path':os.path.join(os.path.dirname(os.path.abspath(__file__)),'static'),
             #'static_url_prefix':'static/',
-            'template_path' : os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static/html'),
+            'template_path' : os.path.join(os.path.dirname(os.path.abspath(__file__)), 'template'),
             'login_url':'/login',
             'cookie_secret':'F/hsxF7kTIWGO1F6HrH78Rf4bMRe5EyFhjtReh6x+/E=',
             'xsrf_cookies':False,
