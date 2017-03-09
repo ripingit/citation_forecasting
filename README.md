@@ -19,7 +19,7 @@
 
 ./static/* 包含CSS、JS等静态文件
 
-./view/*  定义了前端界面交互步骤，包含Tornado模板文件
+./template/*  定义了前端文件，包含Tornado模板
 
 
 ####3.部署需求
