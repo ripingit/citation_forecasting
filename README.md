@@ -1,95 +1,71 @@
-### Citation Forecasting
+# Citation Forecasting
 
-####1.简介
-论文引用次数预测Demo，基于微软学术图历史数据预测论文引用次数上升趋势, 囊括了前端、后台、模型。
-项目基于Tornado。
+###1. Introduction
 
-####2.模块&组件
+This project is a demostration for searching academic papers and forecasting their citations in the future. We build this project based on our [event sequence point process model](https://github.com/xinchrome/point_process) and [Microsoft Academic Graph](https://www.microsoft.com/en-us/research/project/microsoft-academic-graph/), and implement the server application with [Tornado](http://www.tornadoweb.org/en/stable/) and [Solr](http://lucene.apache.org/solr/).
 
 
-./main.py 主文件
+###2. Modules and Components
 
-./common_config/* 包含全局配置文件
+In folder "citation_forecasting", we have the following subdirectories and files:
 
-./controller/* 定义了处理请求的步骤，包含API对应的request handler
+	- ./main.py: entry point of the server application
 
-./service/* 定义了搜索论文、预测引用次数预测、训练模型模型的核心步骤，这些步骤被封装为基础服务
+	- ./common_config/*: configuration files corresponding to running environment
 
-./service/train/*  定义了训练模型的核心算法步骤
+	- ./controller/*: definition of request handlers of HTTP request from front end
 
-./static/* 包含CSS、JS等静态文件
+	- ./service/*: definition of basic services such as searching papers, predicting citations, training models, etc.
 
-./template/*  定义了前端文件，包含Tornado模板
+	- ./service/train/*: definition of core steps for training event sequence model
 
+	- ./static/*: static files such as css, js, etc. which can be moved to any location far away from real server side
 
-####3.部署需求
-
-
-未来为利用容器简化部署过程。目前需要手动安装各个依赖包。
-
-1. python 2.7.10
-2. numpy 1.7.1
-3. tornado 4.3
-4. Java 1.8 （需要Oracle官方版本）
-5. solr 6.0
-6. pysolr 3.3
+	- ./template/*: templates to render
 
 
-####4.部署方法：
+###3. Deployment
 
 
-######1.下载本项目
+Dependencies are list as follows:
 
-首先要下载整个项目，务必解压到全英文路径的目录中。
-
-######2.部署solr引擎
-
-部署并启动solr引擎，然后在solr中新建一个文档集，确保solr的访问url为 http://localhost:8983/solr/paper
-
-注：
-
-solr相关命令如下：
-
-启动$ bin/solr start -cloud -noprompt
-
-建立索引 $ bin/solr create -c paper
-
-关闭 $ bin/solr stop -all && rm -Rf example/cloud/
-
-全文检索 $ bin/post -c gettingstarted docs/
-
-######3.建立索引
-
-建立搜索引擎索引用于文章搜索，在终端输入 
-
-$ python ./service/train/build_index.py。
+1. python 2.7
+2. numpy >= 1.7.1
+6. pysolr >= 3.3
+3. tornado >= 4.3
+5. solr >= 6.0
 
 
-######4.启动预测引擎
 
-运行程序，在终端输入
-
-$ python ./main.py
-
-然后在浏览器打开
-
-http://localhost:8911
+Deployment steps are list as follows:
 
 
-注：
+	- 1. Create an collection named "paper" in Solr. The url for visiting this collection should be like http://localhost:8983/solr/paper . Basic solr commands are list as follows:
+		- start $ bin/solr start -cloud -noprompt
+		- create collection $ bin/solr create -c paper
+		- indexing data $ bin/post -c gettingstarted docs/
+		- stop $ bin/solr stop -all && rm -Rf example/cloud/
+	- 2. Download this project into an english-only directory
+	- 3. create paper index in solr collection 
+		- $ python ./service/train/build_index.py
+	- 4. Run citation_forecasting server
+		- $ python ./main.py
 
-对params.json文件，运行./service/train/train.py 生成
 
-对数据集文件.csv等， 运行 ./service/train/ldp_fea.py 生成
+Once the server is running, you can access citation_forecasting server via visiting http://localhost:8911
 
-对./service/train/academic.db文件，需要通过build_index.py中的select_paper()函数生成
 
-####5.截图
+
+In the future, containor technology like docker will be used for simplifying deployment.
+
+
+
+###4. Snapshot
 
 ![](./doc/citation.png)
 
 
-####6.Reference
+###5. Reference
 
 X Liu, J Yan, S Xiao, X Wang, H Zha, S Chu. On Predictive Patent Valuation: Forecasting Patent Citations and Their Types. AAAI 2017.
 

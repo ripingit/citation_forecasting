@@ -16,7 +16,3 @@ aln_vau = preprocessed_dataset_dir + '/aln_vau.csv'
 #search_server = 'http://localhost:8983/solr/paper'
 search_server = 'http://202.120.80.35:8983/solr/paper'
 
-#training
-train_count = 1
-converge = 1e-1
-

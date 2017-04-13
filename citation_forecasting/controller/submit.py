@@ -9,7 +9,6 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
 
 from service import predict, search
 from util import str_util
-from common_config import common_config
 
 
 class SubmitHandler(tornado.web.RequestHandler):

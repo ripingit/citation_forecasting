@@ -6,7 +6,7 @@ import json
 import numpy
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
-from common_config import common_config
+from config import common_config
 
 with open(common_config.params_file) as fr:
 	params_json = json.load(fr)

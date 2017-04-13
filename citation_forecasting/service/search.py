@@ -6,7 +6,7 @@ import json
 import urllib
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/' + '..')
-from common_config import common_config
+from config import common_config
 
 autocomplete_url_prefix = common_config.search_server
 autocomplete_url_prefix += '/select?rows=0&wt=json&q=*&'
@@ -33,8 +33,6 @@ paging_size = 5
 import pysolr
 
 def autocomplete(prefix):
-    if isinstance(prefix,list):
-        prefix = prefix[0]
     search_url = urllib.urlopen(autocomplete_url_prefix + prefix)
     result = json.loads(search_url.read())
     return result
