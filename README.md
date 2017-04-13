@@ -1,11 +1,11 @@
 # Citation Forecasting
 
-###1. Introduction
+### Introduction
 
 This project is a demostration for searching academic papers and forecasting their citations in the future. We build this project based on our [event sequence point process model](https://github.com/xinchrome/point_process) and [Microsoft Academic Graph](https://www.microsoft.com/en-us/research/project/microsoft-academic-graph/), and implement the server application with [Tornado](http://www.tornadoweb.org/en/stable/) and [Solr](http://lucene.apache.org/solr/).
 
 
-###2. Modules and Components
+### Modules and Components
 
 In folder "citation_forecasting", we have the following subdirectories and files:
 
@@ -24,7 +24,7 @@ In folder "citation_forecasting", we have the following subdirectories and files
 	- ./template/*: templates to render
 
 
-###3. Deployment
+### Deployment
 
 
 Dependencies are list as follows:
@@ -60,12 +60,12 @@ In the future, containor technology like docker will be used for simplifying dep
 
 
 
-###4. Snapshot
+### Snapshot
 
 ![](./doc/citation.png)
 
 
-###5. Reference
+### Reference
 
 X Liu, J Yan, S Xiao, X Wang, H Zha, S Chu. On Predictive Patent Valuation: Forecasting Patent Citations and Their Types. AAAI 2017.
 
